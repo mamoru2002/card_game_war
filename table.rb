@@ -12,9 +12,11 @@ class Table
     @game = game
     @player1 = player1
     @player2 = player2
+    @layout = []
   end
 
   def battle
+    i = 1
     loop do
       puts '戦争！'
 
@@ -24,17 +26,25 @@ class Table
       suit1, rank1 = player1_card
       suit2, rank2 = player2_card
 
+      @layout << player1_card
+      @layout << player2_card
+
       puts "プレイヤー1のカードは#{suit1}の#{rank1}です。"
       puts "プレイヤー2のカードは#{suit2}の#{rank2}です。"
 
       if Card::RANKS.index(rank1) < Card::RANKS.index(rank2)
-        puts 'プレイヤー1が勝ちました。'
+        @player1.add_deal(*@layout)
+        puts "プレイヤー1が勝ちました。プレイヤー1はカードを#{i}枚もらいました。"
+        @layout = []
         break
       elsif Card::RANKS.index(rank1) > Card::RANKS.index(rank2)
-        puts 'プレイヤー2が勝ちました。'
+        @player2.add_deal(*@layout)
+        puts "プレイヤー2が勝ちました。プレイヤー2はカードを#{i}枚もらいました。"
+        @layout = []
         break
       else
         puts '引き分けです。'
+        i += 1
         next
       end
     end

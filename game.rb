@@ -16,6 +16,7 @@ class Game
     @player2.deal_cards
     puts 'カードが配られました。'
 
-    @table.battle
+    @table.battle until @player1.deal.empty? || @player2.deal.empty?
+    puts '戦争を終了します'
   end
 end

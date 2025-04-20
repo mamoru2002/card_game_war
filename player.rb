@@ -12,6 +12,9 @@ class Player
     (0..25).each do |_i|
       @deal << @game.table.shuffled_deck.shift
     end
-    @deal
+  end
+
+  def add_deal(*cards)
+    @deal.concat(cards)
   end
 end
