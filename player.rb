@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
-def initialize(game)
-  @game = game
-  @deal = []
-end
-
 class Player
-  def deal
+  attr_reader :deal
+
+  def initialize(game)
+    @game = game
+    @deal = []
+  end
+
+  def deal_cards
     (0..25).each do |_i|
       @deal << @game.table.shuffled_deck.shift
     end
