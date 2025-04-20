@@ -7,7 +7,7 @@ end
 
 class Player
   def deal
-    (0..26).each do |_i|
+    (0..25).each do |_i|
       @deal << @game.table.shuffled_deck.shift
     end
     @deal
