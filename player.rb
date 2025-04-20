@@ -16,5 +16,6 @@ class Player
 
   def add_deal(*cards)
     @deal.concat(cards)
+    @deal.shuffle!
   end
 end
