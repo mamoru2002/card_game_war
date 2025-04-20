@@ -9,7 +9,7 @@ class Card
     @deck = []
     SUITS.each do |suit|
       RANKS.each do |rank|
-        deck << [suit, rank]
+        @deck << [suit, rank]
       end
     end
   end
