@@ -1,3 +1,6 @@
 # frozen_string_literal: true
 
-Geme.new
+require_relative 'game'
+geme = Game.new
+puts geme.player1.deal
+puts geme.player2.deal
