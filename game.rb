@@ -1,22 +1,44 @@
 # frozen_string_literal: true
 
+require 'pp'
 require_relative 'table'
 require_relative 'player'
 class Game
-  attr_reader :table, :player1, :player2
+  attr_reader :table, :player_count
 
   def initialize
-    @player1 = Player.new(self)
-    @player2 = Player.new(self)
-    @table = Table.new(self, @player1, @player2)
+    @players = []
+    @table = Table.new(self, @players)
 
     puts '戦争を開始します。'
+    print 'プレイヤーの人数を入力してください（2〜5）:'
+    @player_count = gets.chomp.to_i
 
-    @player1.deal_cards
-    @player2.deal_cards
+    @player_count.times do |i|
+      print "プレイヤー#{i + 1}の名前を入力してください:"
+      name = gets.chomp
+      @players << Player.new(self, name)
+    end
+
+    @players.each { |player| player.deal_cards(@player_count) }
     puts 'カードが配られました。'
 
-    @table.battle until @player1.deal.empty? || @player2.deal.empty?
-    puts '戦争を終了します'
+    @table.battle
+    # プレイヤー配列から手札がないインデックスを出力してそのインデックスをlose_index変数に入れる
+    lose_index = (@players.map { |player| player.deal.size }).index { |card| card == 0 }
+
+    puts "#{@players[lose_index].name}の手札がなくなりました。"
+    @players.each do |player|
+      print "#{player.name}の手札は#{player.deal.size}枚です。"
+    end
+
+    @players = @players.sort_by { |player| player.deal.size }.reverse
+    @players.each.with_index do |player, i|
+      print "#{player.name}が#{i + 1}位"
+      print '、' if i != @player_count - 1
+    end
+    puts 'です。'
+
+    puts '戦争を終了します。'
   end
 end
