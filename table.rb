@@ -46,9 +46,9 @@ class Table
 
       rank_layout = rank_layout.map { |rank| Card::RANKS.index(rank) }
 
-      max_rank = rank_layout.max
+      min_rank = rank_layout.min
 
-      if rank_layout.count(max_rank) > 1
+      if rank_layout.count(min_rank) > 1
         puts '引き分けです。'
         next
       end
