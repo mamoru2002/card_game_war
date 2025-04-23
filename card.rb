@@ -12,5 +12,6 @@ class Card
         @deck << [suit, rank]
       end
     end
+    @deck << 'ジョーカー'
   end
 end

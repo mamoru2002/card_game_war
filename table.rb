@@ -50,18 +50,22 @@ class Table
     loop do
       break if @players.any? { |player| player.deal.empty? }
 
-      battle_layout = draw_battle_layout
-      suits, ranks = draw_suits_ranks(battle_layout)
-      @layout.concat(battle_layout)
       puts '戦争！'
+      battle_layout = draw_battle_layout
+
+      @layout.concat(battle_layout)
+      if battle_layout.include?('ジョーカー')
+        print "#{@players[battle_layout.index('ジョーカー')].name}がジョーカーを出しました。"
+        battle_result(battle_layout.index('ジョーカー'))
+        next
+      end
+      suits, ranks = draw_suits_ranks(battle_layout)
       puts_battle_layout(suits, ranks)
       ranks_strength = ranks.map { |rank| Card::RANKS.index(rank) }
-
       if ranks.count('A') > 1 && suits[ranks.index('A')] == 'スペード'
         battle_result(ranks.index('A'))
         next
       end
-
       if ranks_strength.count(ranks_strength.min) > 1
         puts '引き分けです。'
         next
