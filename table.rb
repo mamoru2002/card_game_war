@@ -56,6 +56,12 @@ class Table
       puts '戦争！'
       puts_battle_layout(suits, ranks)
       ranks_strength = ranks.map { |rank| Card::RANKS.index(rank) }
+
+      if ranks.count('A') > 1 && suits[ranks.index('A')] == 'スペード'
+        battle_result(ranks.index('A'))
+        next
+      end
+
       if ranks_strength.count(ranks_strength.min) > 1
         puts '引き分けです。'
         next
