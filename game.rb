@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'pp'
 require_relative 'table'
 require_relative 'player'
 class Game
@@ -24,8 +23,7 @@ class Game
     puts 'カードが配られました。'
 
     @table.battle
-    # プレイヤー配列から手札がないインデックスを出力してそのインデックスをlose_index変数に入れる
-    lose_index = (@players.map { |player| player.deal.size }).index { |card| card == 0 }
+    lose_index = (@players.map { |player| player.deal.size }).index(&:zero?)
 
     puts "#{@players[lose_index].name}の手札がなくなりました。"
     @players.each do |player|
