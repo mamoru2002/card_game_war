@@ -10,6 +10,7 @@ class Player
   end
 
   def deal_cards(player_count)
+    # マジックナンバーになってるので、定数にしてあげましょう！
     (52 / player_count).times do |_i|
       @deal << @game.table.shuffled_deck.shift
     end
